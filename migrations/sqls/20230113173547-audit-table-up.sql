@@ -1,0 +1,1 @@
+CREATE TABLE audit (id serial primary key, email VARCHAR, ip VARCHAR, action VARCHAR, timestamp date);
