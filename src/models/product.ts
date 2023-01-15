@@ -82,4 +82,31 @@ export class ProductStore {
       throw new Error(`Could not get ${entity} ${product.id}. Error: ${err}`);
     }
   }
+
+  async top(): Promise<Product[]> {
+    try {
+      const sql = `SELECT * FROM products WHERE id in (SELECT items.product_id FROM items FULL OUTER JOIN products ON items.product_id = products.id group by items.product_id order by count (items.product_id) desc) limit 5;`;
+      // @ts-ignore
+      const conn = await Client.connect();
+      const result = await conn.query(sql);
+      conn.release();
+      return result.rows;
+    } catch (err) {
+      throw new Error(`Could not get top 5 ${entity}. Error: ${err}`);
+    }
+  }
+
+  async getByCategory(category: string): Promise<Product[]> {
+    try {
+      console.log(category)
+      const sql = `SELECT * FROM ${entity} WHERE category=($1)`;
+      // @ts-ignore
+      const conn = await Client.connect();
+      const result = await conn.query(sql, [category]);
+      conn.release();
+      return result.rows;
+    } catch (err) {
+      throw new Error(`Could not get ${entity} from category ${category}. Error: ${err}`);
+    }
+  }
 }

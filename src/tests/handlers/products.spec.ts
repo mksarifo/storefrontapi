@@ -3,20 +3,20 @@ import app from "../../server"
 import { Product } from "../../models/product";
 
 let createdProduct: Product;
-
+const url = '/api/products'
 describe("Product API Endpoint Test", () => {
 
   it("Create a Product", async () => {
     const product: Product = { name: "some", price: 120, category: undefined }
     const productResponse = await request(app)
-      .post(`/products/`).send(product).expect(200)
+      .post(url).send(product).expect(200)
     createdProduct = productResponse.body as Product
     expect(createdProduct.id).toBeDefined()
   })
 
   it("Get a Product", async () => {
     const productResponse = await request(app)
-      .get(`/products/${createdProduct.id}`).expect(200)
+      .get(`${url}/${createdProduct.id}`).expect(200)
     const product = productResponse.body as Product
     expect(product).toEqual(createdProduct)
   })
@@ -24,7 +24,7 @@ describe("Product API Endpoint Test", () => {
   it("Edit a Product", async () => {
     createdProduct.category = "Laptop"
     const productResponse = await request(app)
-      .put(`/products/`).send(createdProduct).expect(200)
+      .put(url).send(createdProduct).expect(200)
     createdProduct = productResponse.body as Product
     expect(createdProduct.id).toBeDefined()
     expect(createdProduct.category).toEqual("Laptop")
@@ -32,13 +32,27 @@ describe("Product API Endpoint Test", () => {
 
   it("Get an array of Products", async () => {
     const productResponse = await request(app)
-      .get(`/products`)
+      .get(url)
+    const products = productResponse.body as Product[]
+    expect(products.length).toBeGreaterThanOrEqual(1);
+  })
+
+  it("Get top 5 Products", async () => {
+    const productResponse = await request(app)
+      .get(`/api/search/top`)
+    const products = productResponse.body as Product[]
+    expect(products.length).toBeGreaterThanOrEqual(1);
+  })
+
+  it("Get Products by category", async () => {
+    const productResponse = await request(app)
+      .get(`/api/search?category=Laptop`)
     const products = productResponse.body as Product[]
     expect(products.length).toBeGreaterThanOrEqual(1);
   })
 
   it("Delete a Product", async () => {
     await request(app)
-      .delete(`/products/${createdProduct.id}`).expect(200)
+      .delete(`${url}/${createdProduct.id}`).expect(200)
   })
 })

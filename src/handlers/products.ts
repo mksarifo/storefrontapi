@@ -3,6 +3,8 @@ import { Product, ProductStore } from '../models/product';
 
 const store = new ProductStore();
 
+const url = '/api/products'
+
 const index = async (_req: Request, res: Response) => {
   const products = await store.index();
   res.json(products);
@@ -49,12 +51,23 @@ const destroy = async (req: Request, res: Response) => {
   res.json(deleted);
 };
 
+const getTop = async (req: Request, res: Response) => {
+  const products = await store.top();
+  res.json(products);
+};
+const getByCategory = async (req: Request, res: Response) => {
+  const products = await store.getByCategory(req.query.category as string);
+  res.json(products);
+};
+
 const productRoutes = (app: express.Application) => {
-  app.get('/products', index);
-  app.get('/products/:id', show);
-  app.post('/products', create);
-  app.put('/products', edit);
-  app.delete('/products/:id', destroy);
+  app.get(url, index);
+  app.get(`${url}/:id`, show);
+  app.post(url, create);
+  app.put(url, edit);
+  app.delete(`${url}/:id`, destroy);
+  app.get(`/api/search`, getByCategory);
+  app.get(`/api/search/top`, getTop);
 };
 
 export default productRoutes;

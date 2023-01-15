@@ -5,20 +5,20 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 ## API Endpoints
 #### Products
-- Index 
-- Show
-- Create [token required]
+- Index /products [GET]
+- Show /products/:id [GET]
+- Create [token required] /products [POST]
 - [OPTIONAL] Top 5 most popular products 
 - [OPTIONAL] Products by category (args: product category)
 
 #### Users
-- Index [token required]
-- Show [token required]
-- Create N[token required]
+- Index [token required] /users [GET]
+- Show [token required] /users/:id [GET]
+- Create N[token required] /users [POST]
 
 #### Orders
-- Current Order by user (args: user id)[token required]
-- [OPTIONAL] Completed Orders by user (args: user id)[token required]
+- Current Order by user (args: user id)[token required] /orders/:status [GET]
+- [OPTIONAL] Completed Orders by user (args: user id)[token required] /orders/:status [GET]
 
 ## Data Shapes
 #### Product
@@ -40,3 +40,35 @@ These are the notes from a meeting with the frontend developer that describe wha
 - user_id
 - status of order (active or complete)
 
+## Database Tables
+#### Product
+- id: primary key
+- name: varchar
+- price
+- category_id: foreign key
+#### Category
+- id: primary key
+- name: varchar
+- active: boolean
+#### User
+- id: primary key
+- email: varchar
+- firstName: varchar
+- lastName: varchar
+- password_hash
+#### Order Items
+- id
+- order_id
+- quantity
+- product_id
+- date_added
+#### Orders
+- id: primary key
+- user_id
+- completed: boolean
+- created_date
+- completed_date
+#### Wish list
+- date_added
+- user_id
+- product_id
