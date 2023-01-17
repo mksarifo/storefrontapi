@@ -7,13 +7,14 @@ afterAll(async () => {
   await store.delete(createdId)
 })
 
+const anEmail = Math.floor(Math.random() * 1000) + "mail@example.com"
 describe("User Model Test", () => {
   it("should have an index method", () => {
     expect(store.index).toBeDefined()
   })
 
   it("Should create a new user", async () => {
-    const user: User = { email: "some@email", firstName: "John", lastName: "Doe", password: "someRandomText" }
+    const user: User = { email: anEmail, firstName: "John", lastName: "Doe", password: "someRandomText" }
     const createdUser = await store.create(user)
     expect(createdUser).toBeDefined()
     expect(createdUser.id).toBeGreaterThanOrEqual(1)
@@ -34,5 +35,11 @@ describe("User Model Test", () => {
   it("Should return a not empty array of Users", async () => {
     const products = await store.index()
     expect(products.length).toBeGreaterThanOrEqual(1)
+  })
+
+  it("Should authenticate a user", async () => {
+    const user = await store.authenticate(anEmail, "someRandomText")
+    expect(user).toBeDefined()
+    expect(user?.email).toEqual(anEmail)
   })
 })

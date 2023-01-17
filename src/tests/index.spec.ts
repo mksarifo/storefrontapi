@@ -5,8 +5,13 @@ describe('Server Test', () => {
     await request(app)
       .get(`/`)
       .expect(200);
-  });
+  })
+
   it('Should return 404 for unexisting route', async () => {
     await request(app).get('/somerandomroute').expect(404);
-  });
+  })
+
+  it("Access forbidden route", async () => {
+    await request(app).get('/users/5').expect(401);
+  })
 });
