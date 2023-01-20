@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import { Product, ProductStore } from '../models/product';
+import { verifyAuthentication } from "../middleware/verifyAuthentication";
 
 const store = new ProductStore();
 
@@ -63,7 +64,7 @@ const getByCategory = async (req: Request, res: Response) => {
 const productRoutes = (app: express.Application) => {
   app.get(url, index);
   app.get(`${url}/:id`, show);
-  app.post(url, create);
+  app.post(url, verifyAuthentication, create);
   app.put(url, edit);
   app.delete(`${url}/:id`, destroy);
   app.get(`/api/search`, getByCategory);

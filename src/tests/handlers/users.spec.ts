@@ -4,7 +4,7 @@ import { User, UserStore } from "../../models/user";
 import { Product } from "../../models/product";
 
 let createdUser: User
-const url = "/users"
+const url = "/api/users"
 const store = new UserStore()
 const anEmail = Math.floor(Math.random() * 1000) + "mail@example.com"
 let authUser: User
@@ -24,7 +24,7 @@ describe("User API Endpoint Test", () => {
 
   it("Should authenticate user", async () => {
     const token = await request(app)
-      .post('/authenticate').send({email: "admin@user", password: "superSecurePassword12345%"}).expect(200)
+      .post('/api/authenticate').send({email: "admin@user", password: "superSecurePassword12345%"}).expect(200)
     expect(token.body).toBeDefined()
     authToken = token.body
   })
@@ -33,6 +33,7 @@ describe("User API Endpoint Test", () => {
     const user: User = { email: anEmail, firstName: "John", lastName: "Doe", password: "someRandomText" }
     const userResponse = await request(app)
       .post(url)
+      .set({Authorization: `Bearer ${authToken}`})
       .send(user)
       .expect(200)
     createdUser = userResponse.body as User

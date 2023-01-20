@@ -12,6 +12,6 @@ describe('Server Test', () => {
   })
 
   it("Access forbidden route", async () => {
-    await request(app).get('/users/5').expect(401);
+    await request(app).get('/api/users/5').expect(401);
   })
 });

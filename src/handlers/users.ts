@@ -26,7 +26,6 @@ const create = async (req: Request, res: Response) => {
     const newUser = await store.create(user);
     res.json(newUser);
   } catch (err) {
-    console.log(err)
     res.status(400);
     res.json(err);
   }
@@ -39,10 +38,15 @@ const authenticate = async (req: Request, res: Response) => {
   }
   try {
     const u = await store.authenticate(user.email, user.password)
-    const { TOKEN_SECRET } = process.env
-    // @ts-ignore
-    const token = jwt.sign({ user: u }, TOKEN_SECRET+"");
-    res.json(token)
+    if(u !== null) {
+      const { TOKEN_SECRET } = process.env
+      // @ts-ignore
+      const token = jwt.sign({ user: u }, TOKEN_SECRET);
+      res.json(token)
+    } else {
+      throw Error()
+    }
+
   } catch(error) {
     res.status(401)
     res.json({ error })
@@ -50,10 +54,10 @@ const authenticate = async (req: Request, res: Response) => {
 }
 
 const userRoutes = (app: express.Application) => {
-  app.get('/users', verifyAuthentication, index);
-  app.get('/users/:id', verifyAuthentication, show);
-  app.post('/users', create);
-  app.post('/authenticate', authenticate)
+  app.get('/api/users', verifyAuthentication, index);
+  app.get('/api/users/:id', verifyAuthentication, show);
+  app.post('/api/users', verifyAuthentication, create);
+  app.post('/api/authenticate', authenticate)
 };
 
 export default userRoutes;

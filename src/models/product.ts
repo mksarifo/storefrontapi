@@ -98,7 +98,6 @@ export class ProductStore {
 
   async getByCategory(category: string): Promise<Product[]> {
     try {
-      console.log(category)
       const sql = `SELECT * FROM ${entity} WHERE category=($1)`;
       // @ts-ignore
       const conn = await Client.connect();
