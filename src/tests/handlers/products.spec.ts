@@ -11,7 +11,7 @@ let authToken: string;
 
 beforeAll(async () => {
 
-  const anEmail = Math.floor(Math.random() * 100) + "mail@example.com"
+  const anEmail = Math.floor(Math.random() * 100) + "products@example.com"
   const aPassword = "superSecurePassword12345%"
   const user: User = { email: anEmail, firstName: "John", lastName: "Doe", password: aPassword }
   await userStore.create(user)

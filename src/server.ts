@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import productRoutes from './handlers/products';
 import morgan from 'morgan';
 import helmet from 'helmet';
+import cors from 'cors';
 import userRoutes from "./handlers/users";
 import orderRoute from "./handlers/orders";
 
@@ -12,6 +13,7 @@ const address: string = '0.0.0.0:3000';
 app.use(bodyParser.json());
 app.use(helmet());
 app.use(morgan('tiny'));
+app.use(cors());
 
 app.get('/', function (req: Request, res: Response) {
   res.send('Hello World!');

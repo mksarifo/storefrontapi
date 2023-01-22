@@ -5,70 +5,67 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 ## API Endpoints
 #### Products
-- Index /products [GET]
-- Show /products/:id [GET]
-- Create [token required] /products [POST]
-- [OPTIONAL] Top 5 most popular products 
-- [OPTIONAL] Products by category (args: product category)
+- Index /api/products [GET]
+- Show /api/products/:id [GET]
+- Create [token required] /api/products [POST]
+- [OPTIONAL] Top 5 most popular products  /api/search/top [GET]
+- [OPTIONAL] Products by category (args: product category) /api/search/category?:category [GET]
 
 #### Users
-- Index [token required] /users [GET]
-- Show [token required] /users/:id [GET]
-- Create N[token required] /users [POST]
+- Index [token required] /api/users [GET]
+- Show [token required] /api/users/:id [GET]
+- Create N[token required] /api/users [POST]
 
 #### Orders
-- Current Order by user (args: user id)[token required] /orders/:status [GET]
-- [OPTIONAL] Completed Orders by user (args: user id)[token required] /orders/:status [GET]
+- Current Order by user (args: user id)[token required] /api/orders/:status [GET]
+- [OPTIONAL] Completed Orders by user (args: user id)[token required] /api/orders/:status [GET]
 
 ## Data Shapes
 #### Product
--  id
+- id
 - name
 - price
 - [OPTIONAL] category
 
 #### User
 - id
+- email (used for authentication)
 - firstName
 - lastName
 - password
 
 #### Orders
 - id
-- id of each product in the order
-- quantity of each product in the order
+- items: List of
+  - id of each product in the order
+  - quantity of each product in the order
 - user_id
-- status of order (active or complete)
+- completed: status of order (active or complete)
 
 ## Database Tables
 #### Product
 - id: primary key
 - name: varchar
-- price
+- price: number
 - category_id: foreign key
 #### Category
-- id: primary key
+- id: Primary key
 - name: varchar
 - active: boolean
 #### User
-- id: primary key
+- id: Primary key
 - email: varchar
 - firstName: varchar
 - lastName: varchar
-- password_hash
-#### Order Items
-- id
-- order_id
-- quantity
-- product_id
-- date_added
+- password: varchar
 #### Orders
-- id: primary key
-- user_id
+- id: Primary key
+- user_id: Foreign key to users table
 - completed: boolean
-- created_date
-- completed_date
-#### Wish list
-- date_added
-- user_id
-- product_id
+- (items: List)
+#### Order Items
+- id: Primary key
+- order_id: Foreign key to orders table
+- quantity: number
+- product_id: Foreign key to products table
+- date_added: Date

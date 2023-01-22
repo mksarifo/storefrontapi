@@ -24,46 +24,65 @@ Checks the app from lint errors
 
 Format code with prettier
 
-### `npm run test`
+### `npm test`
 
-Runs jasmine tests
+Runs jasmine tests.
+Make sure to replace the configuration on database.json test database connection settings before running the tests
 
-### `npm run build`
 
-Builds the application and saves to build directory
+## Configuration
+
+### Database
+Create a .env file with the following config
+
+POSTGRES_HOST=[database host]
+
+POSTGRES_DB=[database name]
+
+POSTGRES_USER=[database user]
+
+POSTGRES_PASSWORD=[database password]
+
+TOKEN_SECRET=[generate a jwt secret]
+
+PEPPER=[a pepper random string]
+
 
 
 ## Endpoints
 
-✅ `/` - Health check, to see if server is up
-`/authenticate` - Authenticate user, returns a JWT token that must be passed as Authentication Header for required resources
+`/` - Health check, to see if server is up
+
+`/api/authenticate` - Authenticate user, returns a JWT token that must be passed as Authentication Header for required resources
 
 #### User Resource
 
-✅ `/api/users` - [GET] Returns a list of created users (authentication required)
+`/api/users` - [GET] Returns a list of created users (authentication required)
 
-✅ `/api/users/:id` - [GET] Returns one user based on id parameter (authentication required)
+`/api/users/:id` - [GET] Returns one user based on id parameter (authentication required)
 
 `/api/users` - [POST] Creates a new user (authentication required)
 
 #### Product Resource
 
-✅ `/api/products/:id` - [GET] Returns one product based on id parameter
+`/api/products/:id` - [GET] Returns one product based on id parameter
 
-✅ `/api/products` - [GET] Returns a list of products
+`/api/products` - [GET] Returns a list of products
 
-✅ `/api/products` - [POST] Creates a new product (authentication required)
+`/api/products` - [POST] Creates a new product (authentication required)
 
-✅ `/api/search/top` - [GET] Returns the top 5 products
+`/api/search/top` - [GET] Returns the top 5 products
 
-✅ `/api/search?category=:category` - [GET] Returns a list of products by category
+`/api/search?category=:category` - [GET] Returns a list of products by category
 
 Example:
 `/api/search?category=cars` - Returns products for cars category
 
 #### Order Resource
 
-`/api/orders/:status` - Returns the orders by status for the authenticated user (authentication required)
+`/api/orders` - [POST] Creates a new order for authenticated user
+
+`/api/orders/:status` -[GET] Returns the orders by status for the authenticated user (authentication required)
 
 Example: 
 `/api/orders/active` - Returns active orders

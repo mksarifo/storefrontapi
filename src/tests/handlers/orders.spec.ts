@@ -13,7 +13,7 @@ const userStore = new UserStore()
 let existingProducts: Product[] = []
 
 beforeAll(async () => {
-  const anEmail = Math.floor(Math.random() * 100) + "mail@example.com"
+  const anEmail = Math.floor(Math.random() * 100) + "orders@example.com"
   const aPassword = "superSecurePassword12345%"
   const user: User = { email: anEmail, firstName: "John", lastName: "Doe", password: aPassword }
   await userStore.create(user)

@@ -7,7 +7,7 @@ afterAll(async () => {
   await store.delete(createdId)
 })
 
-const anEmail = Math.floor(Math.random() * 1000) + "mail@example.com"
+const anEmail = Math.floor(Math.random() * 1000) + "user@example.com"
 describe("User Model Test", () => {
   it("should have an index method", () => {
     expect(store.index).toBeDefined()

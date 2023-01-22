@@ -6,7 +6,7 @@ import { Product } from "../../models/product";
 let createdUser: User
 const url = "/api/users"
 const store = new UserStore()
-const anEmail = Math.floor(Math.random() * 1000) + "mail@example.com"
+const anEmail = Math.floor(Math.random() * 1000) + "users@example.com"
 let authUser: User
 let authToken: string
 

@@ -12,7 +12,7 @@ let existingProduct: Product;
 
 beforeAll(async () => {
   // Create a testing user
-  const anEmail = Math.floor(Math.random() * 100) + "mail@example.com"
+  const anEmail = Math.floor(Math.random() * 100) + "order@example.com"
   const someUser = { email: anEmail, firstName: "John", lastName: "Doe", password: "someRandomText" }
   existingUser = await userStore.create(someUser)
 

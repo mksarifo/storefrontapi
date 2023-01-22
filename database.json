@@ -1,0 +1,24 @@
+{
+  "dev": {
+    "driver": "pg",
+    "host": {
+      "ENV": "POSTGRES_HOST"
+    },
+    "database": {
+      "ENV": "POSTGRES_DB"
+    },
+    "user": {
+      "ENV": "POSTGRES_USER"
+    },
+    "password": {
+      "ENV": "POSTGRES_PASSWORD"
+    }
+  },
+  "test": {
+    "driver": "pg",
+    "host": "127.0.0.1",
+    "database": "store_front_test",
+    "user": "store_front_user_test",
+    "password": "password123"
+  }
+}
