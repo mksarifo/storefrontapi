@@ -16,9 +16,6 @@ In the project directory, you can run:
 
 Start the dev server. Runs the app on port 3000
 
-### `npm run lint`
-
-Checks the app from lint errors
 
 ### `npm run prettier`
 
@@ -33,6 +30,23 @@ Make sure to replace the configuration on database.json test database connection
 ## Configuration
 
 ### Database
+#### Create the database
+Run below SQL query on your psql terminal to create the dev and test databases
+
+Creates the development database  
+`CREATE DATABASE storefront_dev;`
+
+Creates the test database  
+`CREATE DATABASE storefront_test;`
+
+Create a user to authenticate  
+`CREATE USER storefront_user WITH PASSWORD 'password123';`
+
+Grant access privileges on both databases to the created user  
+`GRANT ALL PRIVILEGES ON DATABASE storefront_dev TO storefront_user;`  
+`GRANT ALL PRIVILEGES ON DATABASE storefront_test TO storefront_user;`
+
+#### Configure database connection
 Create a .env file with the following config
 
 POSTGRES_HOST=[database host]
