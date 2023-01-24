@@ -46,6 +46,8 @@ Grant access privileges on both databases to the created user
 `GRANT ALL PRIVILEGES ON DATABASE storefront_dev TO storefront_user;`  
 `GRANT ALL PRIVILEGES ON DATABASE storefront_test TO storefront_user;`
 
+Default port for PostgreSQL is 5432
+
 #### Configure database connection
 Create a .env file with the following config
 
